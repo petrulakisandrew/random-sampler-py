@@ -30,3 +30,8 @@ def random_date(start_date: str, end_date: str, date_format: str = "%m-%d-%Y") -
     return random_date.strftime(date_format)
 
 
+#Random Sampling Testing
+for caseworker in CASEWORKERS:
+    for _ in range(NUM_SAMPLES):
+        sample_date = random_date(DATE_RANGE[0], DATE_RANGE[1])
+        print(f'{caseworker} {sample_date}')
