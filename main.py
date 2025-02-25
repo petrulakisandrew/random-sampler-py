@@ -39,7 +39,7 @@ data.fillna('N/A', inplace=True)
 caseworkers = data["Caseworker58"]
 
 #Random Sampling Based On Caseworker (2 for each person):
-sampled_data = data.groupby("Caseworker58").apply(lambda x: x.sample(n=2)).reset_index(drop=True)
+sampled_data = data.groupby("Caseworker58").apply(lambda x: x.sample(n=min(len(x), 2),)).reset_index(drop=True)
 
 #Testing with Print Statement:
 print(sampled_data)
