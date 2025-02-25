@@ -15,8 +15,31 @@ def random_sample(data: str, column: str, sample_size: int, sampled_data: str) -
         - sample_size: number of samples desired per object.
         - sampled_data: name of newly created dataframe
     """
-    sampled_data = data.groupby(column).apply(lambda x: x.sample(n=min(len(x), sample_size),)).reset_index(drop=True)
-    print(sampled_data)
+    try:
+        #Ensure the original data exists as a dataframe
+        if data.empty:
+            raise ValueError("The provided 'data' does not exist")
+        
+        # Ensure sample_size is a valid integer and greater than zero
+        if not isinstance(sample_size, int) or sample_size <= 0:
+            raise ValueError("sample_size must be a positive whole number.")
+        
+        #Ensure the naming convention of the new dataframe is a character string
+        if not isinstance(sampled_data, str):
+            raise ValueError("Sampled data frame name must be a character string")
+        
+        # Ensure the column exists in the DataFrame
+        if column not in data.columns:
+            raise ValueError(f"Column '{column}' not found in data.")
+        
+        #Proceed with sample
+        sampled_data = data.groupby(column).apply(lambda x: x.sample(n=min(len(x), sample_size),)).reset_index(drop=True)
+        return sampled_data
+    
+    #Display error message and terminates
+    except ValueError as ve:
+        print(f"Error: {ve}")
+        return None
 
 #Reading in Excel File 
 data_test = pd.read_excel(REPORT_DIRECTORY)
