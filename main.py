@@ -8,9 +8,9 @@ from datetime import datetime, timedelta
 #Setting Excel File Directory
 REPORT_DIRECTORY = "C:/Users/Andrew Petrulakis/Desktop/Reports/SEMAP/SEMAP 3 AND 10/DHA/2025/Jan/Jan_Activity.xlsx"
 
-CASEWORKERS = ['Candice', 'Morgan', 'Ozury', 'Nida', 'Scott']
-DATE_RANGE = ('01-01-2024', '12-31-2024')
-NUM_SAMPLES = 2
+# CASEWORKERS = ['Candice', 'Morgan', 'Ozury', 'Nida', 'Scott']
+# DATE_RANGE = ('01-01-2024', '12-31-2024')
+# NUM_SAMPLES = 2
 
 def random_date(start_date: str, end_date: str, date_format: str = "%m-%d-%Y") -> str:
     """ Generate a random date between two given dates.
@@ -35,8 +35,15 @@ def random_date(start_date: str, end_date: str, date_format: str = "%m-%d-%Y") -
 data = pd.read_excel(REPORT_DIRECTORY)
 data.fillna('N/A', inplace=True)
 
-#Random Sampling Testing
-for caseworker in CASEWORKERS:
-    for _ in range(NUM_SAMPLES):
-        sample_date = random_date(DATE_RANGE[0], DATE_RANGE[1])
-        print(f'{caseworker} {sample_date}')
+#Isolatiing Column that will be used for sampling 
+caseworkers = data["Caseworker58"]
+
+#Testing with Print Statement
+print(caseworkers)
+
+
+# #Random Sampling Testing
+# for caseworker in CASEWORKERS:
+#     for _ in range(NUM_SAMPLES):
+#         sample_date = random_date(DATE_RANGE[0], DATE_RANGE[1])
+#         print(f'{caseworker} {sample_date}')
