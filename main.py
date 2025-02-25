@@ -34,12 +34,16 @@ def random_sample(data: str, column: str, sample_size: int, sampled_data: str) -
         
         #Proceed with sample
         sampled_data = data.groupby(column).apply(lambda x: x.sample(n=min(len(x), sample_size),)).reset_index(drop=True)
+        print(sampled_data)
         return sampled_data
+    
+        
     
     #Display error message and terminates
     except ValueError as ve:
         print(f"Error: {ve}")
         return None
+
 
 #Reading in Excel File 
 data_test = pd.read_excel(REPORT_DIRECTORY)
@@ -47,4 +51,5 @@ data_test.fillna('N/A', inplace=True)
 
 #Using definition to Sample Data
 random_sample(data_test, "Caseworker58", 2, "sampled_test")
+
 
