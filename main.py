@@ -22,15 +22,6 @@ def random_sample(data: str, column: str, sample_size: int, sampled_data: str) -
 data_test = pd.read_excel(REPORT_DIRECTORY)
 data_test.fillna('N/A', inplace=True)
 
-# #Isolatiing Column that will be used for sampling 
-# caseworkers = data_test["Caseworker58"]
-
-# #Random Sampling Based On Caseworker (2 for each person):
-# sampled_data = data_test.groupby("Caseworker58").apply(lambda x: x.sample(n=min(len(x), 2),)).reset_index(drop=True)
-
+#Using definition to Sample Data
 random_sample(data_test, "Caseworker58", 2, "sampled_test")
-# #Random Sampling Testing
-# for caseworker in CASEWORKERS:
-#     for _ in range(NUM_SAMPLES):
-#         sample_date = random_date(DATE_RANGE[0], DATE_RANGE[1])
-#         print(f'{caseworker} {sample_date}')
+
