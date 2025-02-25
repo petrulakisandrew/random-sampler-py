@@ -6,9 +6,7 @@ import random
 from datetime import datetime, timedelta
 
 #Setting Excel File Directory
-REPORT_DIRECTORY = "C:/Users/Andrew Petrulakis/Desktop/Reports/SEMAP/SEMAP 3 AND 10/DHA/2025/Jan"
-NEW_FILE_NAME = "Jan_Activity.xlsx"
-
+REPORT_DIRECTORY = "C:/Users/Andrew Petrulakis/Desktop/Reports/SEMAP/SEMAP 3 AND 10/DHA/2025/Jan/Jan_Activity.xlsx"
 
 CASEWORKERS = ['Candice', 'Morgan', 'Ozury', 'Nida', 'Scott']
 DATE_RANGE = ('01-01-2024', '12-31-2024')
@@ -33,7 +31,9 @@ def random_date(start_date: str, end_date: str, date_format: str = "%m-%d-%Y") -
     random_date = start + timedelta(days=random.randint(0, (end - start).days))
     return random_date.strftime(date_format)
 
-
+#Reading in Excel File 
+data = pd.read_excel(REPORT_DIRECTORY)
+data.fillna('N/A', inplace=True)
 
 #Random Sampling Testing
 for caseworker in CASEWORKERS:
