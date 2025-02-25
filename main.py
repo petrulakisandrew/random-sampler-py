@@ -38,9 +38,11 @@ data.fillna('N/A', inplace=True)
 #Isolatiing Column that will be used for sampling 
 caseworkers = data["Caseworker58"]
 
-#Testing with Print Statement
-print(caseworkers)
+#Random Sampling Based On Caseworker (2 for each person):
+sampled_data = data.groupby("Caseworker58").apply(lambda x: x.sample(n=2)).reset_index(drop=True)
 
+#Testing with Print Statement:
+print(sampled_data)
 
 # #Random Sampling Testing
 # for caseworker in CASEWORKERS:
