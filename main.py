@@ -4,6 +4,15 @@ import os
 import pandas as pd 
 import random
 from datetime import datetime, timedelta
+import subprocess
+import time
+
+# Run the GUI script first to collect the inputs
+subprocess.run(["python", "C:/Users/Andrew Petrulakis/Development/random-sampler-py/Input_GUI.py"])
+
+# After the GUI finishes, read the input values from the text file
+input_file = "input_values.txt"
+
 
 # Read input values from the text file
 input_file = "input_values.txt"
