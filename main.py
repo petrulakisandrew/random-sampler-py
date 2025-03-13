@@ -25,7 +25,9 @@ try:
         
         REPORT_DIRECTORY = lines[0].strip()  # File path (Previously hardcoded)
         column_name = lines[1].strip()  # Column name
-        sample_size = int(lines[2].strip())  # Convert sample size to integer
+        sample_size = int(lines[2].strip())
+        sampled_data = lines[3].strip()  # The name for the output file
+
 
 except FileNotFoundError:
     print(f"Error: The file {input_file} was not found.")
@@ -33,6 +35,8 @@ except ValueError as ve:
     print(f"Value error: {ve}")
 except Exception as e:
     print(f"An unexpected error occurred: {e}")
+    
+
 
 #Setting Excel File Directory
 #REPORT_DIRECTORY = "C:/Users/Andrew Petrulakis/Desktop/Reports/SEMAP/SEMAP 3 AND 10/DHA/2025/Jan/Jan_Activity.xlsx"
@@ -79,6 +83,6 @@ data_test = pd.read_excel(REPORT_DIRECTORY)
 data_test.fillna('N/A', inplace=True)
 
 #Using definition to Sample Data
-random_sample(data_test, "Caseworker58", 2, "sampled_test")
+random_sample(data_test, column_name, 2, sampled_data)
 
 
