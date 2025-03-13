@@ -5,8 +5,28 @@ import pandas as pd
 import random
 from datetime import datetime, timedelta
 
+# Read input values from the text file
+input_file = "input_values.txt"
+
+try:
+    with open(input_file, "r") as f:
+        lines = f.readlines()
+        if len(lines) < 3:
+            raise ValueError("Input file does not contain enough values.")
+        
+        REPORT_DIRECTORY = lines[0].strip()  # File path (Previously hardcoded)
+        column_name = lines[1].strip()  # Column name
+        sample_size = int(lines[2].strip())  # Convert sample size to integer
+
+except FileNotFoundError:
+    print(f"Error: The file {input_file} was not found.")
+except ValueError as ve:
+    print(f"Value error: {ve}")
+except Exception as e:
+    print(f"An unexpected error occurred: {e}")
+
 #Setting Excel File Directory
-REPORT_DIRECTORY = "C:/Users/Andrew Petrulakis/Desktop/Reports/SEMAP/SEMAP 3 AND 10/DHA/2025/Jan/Jan_Activity.xlsx"
+#REPORT_DIRECTORY = "C:/Users/Andrew Petrulakis/Desktop/Reports/SEMAP/SEMAP 3 AND 10/DHA/2025/Jan/Jan_Activity.xlsx"
 
 def random_sample(data: str, column: str, sample_size: int, sampled_data: str) -> str:
     """ Generate a random sample based on excel column criteria.
