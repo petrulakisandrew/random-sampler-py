@@ -23,11 +23,11 @@ try:
         if len(lines) < 3:
             raise ValueError("Input file does not contain enough values.")
         
-        REPORT_DIRECTORY = lines[0].strip()  # File path (Previously hardcoded)
-        column_name = lines[1].strip()  # Column name
+        REPORT_DIRECTORY = lines[0].strip()  
+        column_name = lines[1].strip()  
         sample_size = int(lines[2].strip())
-        sampled_data = lines[3].strip()  # The name for the output file
-
+        sampled_data = lines[3].strip()  
+        OUTPUT_DIRECTORY = lines[4].strip()  
 
 except FileNotFoundError:
     print(f"Error: The file {input_file} was not found.")
@@ -83,6 +83,16 @@ data_test = pd.read_excel(REPORT_DIRECTORY)
 data_test.fillna('N/A', inplace=True)
 
 #Using definition to Sample Data
-random_sample(data_test, column_name, 2, sampled_data)
+sampled_df = random_sample(data_test, column_name, 2, sampled_data)
 
+# Ensure that the sampled_df is a valid DataFrame before saving
+if isinstance(sampled_df, pd.DataFrame):
+    # Define the output file path using the correct name
+    output_file_path = os.path.join(OUTPUT_DIRECTORY, f"{sampled_data}.xlsx")
 
+    # Export the sampled data to an Excel file
+    sampled_df.to_excel(output_file_path, index=False)
+    print(f"Sampled data successfully saved as '{sampled_data}.xlsx' in {OUTPUT_DIRECTORY}")
+else:
+    print("No valid sampled data to save.")
+    
