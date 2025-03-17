@@ -8,26 +8,25 @@ import subprocess
 import time
 
 # Run the GUI script first to collect the inputs
-subprocess.run(["python", "C:/Users/Andrew Petrulakis/Development/random-sampler-py/Input_GUI.py"])
+subprocess.run(["python", "C:/Users/Andrew Petrulakis/Development/random-sampler-py/Input_GUI.py"], check=True)
 
 # After the GUI finishes, read the input values from the text file
-input_file = "input_values.txt"
+input_file = os.path.join(os.path.dirname(__file__), "input_values.txt")  
 
-
-# Read input values from the text file
-input_file = "input_values.txt"
 
 try:
     with open(input_file, "r") as f:
         lines = f.readlines()
-        if len(lines) < 3:
-            raise ValueError("Input file does not contain enough values.")
+        print(f"Debug: File contents: {lines}")  # Show what’s read in console
+        if len(lines) < 5:
+            raise ValueError(f"Input file has {len(lines)} lines, expected 5.") #There should be 5 exact lines for input
         
-        REPORT_DIRECTORY = lines[0].strip()  
-        column_name = lines[1].strip()  
-        sample_size = int(lines[2].strip())
-        sampled_data = lines[3].strip()  
-        OUTPUT_DIRECTORY = lines[4].strip()  
+        REPORT_DIRECTORY = lines[0].strip()
+        column_name = lines[1].strip()
+        sample_size = int(lines[2].strip())  # This must be a number
+        sampled_data = lines[3].strip()
+        OUTPUT_DIRECTORY = lines[4].strip()
+        print(f"Debug: Parsed inputs: {REPORT_DIRECTORY}, {column_name}, {sample_size}, {sampled_data}, {OUTPUT_DIRECTORY}") 
 
 except FileNotFoundError:
     print(f"Error: The file {input_file} was not found.")
@@ -83,7 +82,7 @@ data_test = pd.read_excel(REPORT_DIRECTORY)
 data_test.fillna('N/A', inplace=True)
 
 #Using definition to Sample Data
-sampled_df = random_sample(data_test, column_name, 2, sampled_data)
+sampled_df = random_sample(data_test, column_name, sample_size, sampled_data)
 
 # Ensure that the sampled_df is a valid DataFrame before saving
 if isinstance(sampled_df, pd.DataFrame):
